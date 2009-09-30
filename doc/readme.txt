@@ -25,6 +25,9 @@ Auf dem Ticket (Ausgegeben als PDF) stehen die wichtigsten Daten und ein Barcode
 Die Daten fuer den Barcode hab ich in der barcode/image.php fest eingestellt (Typ,
 Breite, Rahmen, etc.) sodass nurnoch die UserID uebergeben werden muss.
 
+Der Barcode ist vom Typ "Code128-A". Das kann in der Datei barcode/image.php
+geändert werden
+
 
 Das Projekt, Hilfe, usw. findet ihr hier:
 http://sourceforge.net/projects/dotlanticket/
