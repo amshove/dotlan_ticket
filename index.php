@@ -17,7 +17,7 @@
 # You should have received a copy of the GNU General Public License    #
 # along with this program; if not, see <http://www.gnu.org/licenses/>. #
 #                                                                      #
-# ticket/index.php - Version 0.9                                       #
+# ticket/index.php - Version 1.0                                       #
 ########################################################################
 
 include_once("../global.php");
@@ -30,12 +30,22 @@ $EVENT->getevent($event_id);
 
 $data = $DB->query_first("SELECT t.bezahlt AS bezahlt, s.status_extern AS status, t.sitz_nr AS sitzplatz FROM event_teilnehmer t, event_status s WHERE t.zahl_typ = s.id AND t.event_id = '".$event_id."' AND t.user_id = '".$user_id."' LIMIT 1");
 
+$output = "<br>";
+
 if($data['bezahlt'] < 1){
-  $output = "Du bist nicht zu diesem Event angemeldet oder hast noch nicht bezahlt. Den Status kannst du <a href='/party/?do=status'>hier</a> sehen.";
+  $output .= "Du bist nicht zu diesem Event angemeldet oder hast noch nicht bezahlt. Den Status kannst du <a href='/party/?do=status'>hier</a> sehen.";
 }else{
-  $output = "Hier bekommst du dein Online-Ticket im PDF-Format und kannst es ausdrucken. Mit dem Ticket darfst du dich dann beim Check-In an die \"Fast Lane\" anstellen, und kommst schneller in die Halle.";
+  $output .= "Hier bekommst du dein Online-Ticket im PDF-Format und kannst es ausdrucken. Mit dem Ticket darfst du dich dann beim Check-In an die \"Fast Lane\" anstellen, und kommst schneller in die Halle.";
   $output .= "<br><br>";
   $output .= "<b>Ticket:</b> <a href='/ticket/export.php' target='_blank'>".sprintf("%04d",$user_id)." - ".$CURRENT_USER->nick." - ".$EVENT->eventarr['name']."</a>";
+}
+
+if($ADMIN->check(ADMIN_USER)){
+  $output .= "<br><br><hr><br>";
+  $output .= "<b>Ticket f&uuml;r andere User ausdrucken:</b>";
+  $output .= "<form action='export.php' method='GET' target='_blank'>";
+  $output .= "UserID: <input type='text' size='4' name='userid'>";
+  $output .= "<input type='submit' value='Ticket anzeigen'></form>";
 }
 
 $PAGE->render($output);

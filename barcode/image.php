@@ -35,19 +35,13 @@ Contact author at: barcode@mribti.com
   require("c128bobject.php");
   require("c128cobject.php");
               			   
-# Style Einstellungen (Moegliche Einstellungen stehen in der barcode.php)
   if (!isset($style))  $style   = BCS_BORDER | BCS_ALIGN_CENTER | BCS_IMAGE_PNG | BCS_DRAW_TEXT | BCS_STRETCH_TEXT;
-# Breite des Barcodes
   if (!isset($width))  $width   = "250";
-# Hoehe des Barcodes
   if (!isset($height)) $height  = BCD_DEFAULT_HEIGHT;
-# Hotizontale Aufloesung
   if (!isset($xres))   $xres    = BCD_DEFAULT_XRES;
-# Schrift-Typ
   if (!isset($font))   $font    = BCD_DEFAULT_FONT;
-# Barcode-Typ
+
   $type = "C128A";
-# Inhalt des Barcodes (wird aus der GET-Variable genommen)
   $code = $_GET["code"];
   			    
   switch ($type)
