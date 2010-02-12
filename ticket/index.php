@@ -35,7 +35,8 @@ $output = "<br>";
 if($data['bezahlt'] < 1){
   $output .= "Du bist nicht zu diesem Event angemeldet oder hast noch nicht bezahlt. Den Status kannst du <a href='/party/?do=status'>hier</a> sehen.";
 }else{
-  $output .= "Hier bekommst du dein Online-Ticket im PDF-Format und kannst es ausdrucken. Mit dem Ticket darfst du dich dann beim Check-In an die \"Fast Lane\" anstellen, und kommst schneller in die Halle.";
+  $output .= "<b>Ticket drucken</b><br />Hier bekommst du dein Online-Ticket im PDF-Format und kannst es ausdrucken. Mit dem Ticket darfst du dich dann beim Check-In an die \"Fast Lane\" anstellen, und kommst schneller in die Halle.<br /><br />";
+  $output .= "<b>IP-Einstellungen</b><br />Dein Ticket enthält auch die IP-Einstellungen, die du auf der Maxlan benötigst. Bitte drucke dieses Ticket erst aus, wenn du dir sicher bist, dass dein Sitzplatz sich nicht mehr ändern wird! Die IP-Einstellungen sind abhängig von deinem Sitzplatz!";
   $output .= "<br><br>";
   $output .= "<b>Ticket:</b> <a href='/ticket/export.php' target='_blank'>".sprintf("%04d",$user_id)." - ".$CURRENT_USER->nick." - ".$EVENT->eventarr['name']."</a>";
 }

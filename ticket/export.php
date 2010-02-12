@@ -34,7 +34,7 @@ $subnetz = array(
   "H" => "9",
   "V" => "10"
 );
-$subnetzmaske = "255.255.252.0";
+$subnetzmaske = "255.255.240.0";
 $gateway = "10.10.1.1";
 $dns1 = "10.10.1.253";
 $dns2 = "10.10.1.1";
@@ -183,6 +183,11 @@ if($data['bezahlt'] < 1){
   $pdf->Ln();
   # Dritter Block - IP Settings
   $pdf->SetFont('Arial','B',10);
+  $pdf->Cell(30,4,"Rechnername: ");
+  $pdf->SetFont('Arial','',10);
+  $pdf->Cell(0,4,$nick." (ohne Sonderzeichen)");
+  $pdf->Ln();
+  $pdf->SetFont('Arial','B',10);
   $pdf->Cell(30,4,"IP-Adresse: ");
   $pdf->SetFont('Arial','',10);
   $pdf->Cell(0,4,$ip);
@@ -252,6 +257,6 @@ if($data['bezahlt'] < 1){
   # Pop-Up Hinweis
   $pdf->SetFont('Arial','B',12);
   $pdf->MultiCell(0,4,$text_hinweis);
-  $pdf->Output();
+  $pdf->Output("maxlan_ticket.pdf","I");
 }  
 ?>
