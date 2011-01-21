@@ -22,6 +22,8 @@
 
 include_once("../global.php");
 
+$URL = "http://".$_SERVER["SERVER_NAME"]."/ticket";
+
 $ip = "10.10.";
 $subnetz = array(
   "A" => "2",
@@ -80,7 +82,7 @@ $data = $DB->query_first("SELECT t.bezahlt AS bezahlt, s.status_extern AS status
 
 if($data['bezahlt'] < 1){
   # Benutzer hat nicht bezahlt / ist nicht angemeldet
-  echo "Du bist nicht zu diesem Event angemeldet oder hast noch nicht bezahlt. Den Status kannst du <a href='/party/?do=status'>hier</a> sehen."; 
+  echo "Du bist nicht zu diesem Event angemeldet oder hast noch nicht bezahlt. Den Status kannst du <a href='/party/?do=status'>hier</a> sehen.";
 }else{
   $user_id_long = sprintf("%04d",$user_id);
 
@@ -108,9 +110,9 @@ if($data['bezahlt'] < 1){
   $pdf=new FPDF();
   $pdf->AddPage();
   # Barcode
-  $pdf->Image(substr($_SERVER["SCRIPT_URI"],0,-10)."barcode/image.php?code=".$user_id_long."&tmp=.png",120,42,50);
+  $pdf->Image($URL."/barcode/image.php?code=".$user_id_long."&tmp=.png",120,42,50);
   # Logo
-  $pdf->Image(substr($_SERVER["SCRIPT_URI"],0,-10)."logo.gif",150,10,50);
+  $pdf->Image($URL."/logo.gif",150,20,50);
   # Ueberschrift / Eventname
   $pdf->SetFont('Arial','B',20);
   $pdf->Cell(0,10,$EVENT->eventarr['name']);
@@ -236,9 +238,10 @@ if($data['bezahlt'] < 1){
   $pdf->MultiCell(0,4,$text_wichtig);
   $pdf->Ln();
   # Leerraum
-  $pdf->Cell(0,10,'');
+#  $pdf->Cell(0,10,'');
+  $pdf->Cell(0,3,'');
   $pdf->Ln();
-  # Serveradressen 
+  # Serveradressen
   $pdf->SetFont('Arial','B',10);
   $pdf->Cell(0,4,"Ein paar Server-Adressen");
   $pdf->Ln();
@@ -246,17 +249,45 @@ if($data['bezahlt'] < 1){
   $pdf->MultiCell(0,4,$text_server);
   $pdf->Ln();
   # Leerraum
-  $pdf->Cell(0,10,'');
+#  $pdf->Cell(0,10,'');
+  $pdf->Cell(0,4,'');
   $pdf->Ln();
   # Gruss
   $pdf->SetFont('Arial','B',10);
   $pdf->Cell(0,4,$text_abschluss);
   # Leerraum
-  $pdf->Cell(0,30,'');
+#  $pdf->Cell(0,30,'');
+  $pdf->Cell(0,10,'');
   $pdf->Ln();
   # Pop-Up Hinweis
   $pdf->SetFont('Arial','B',12);
   $pdf->MultiCell(0,4,$text_hinweis);
+
+# Teamplay aktion
+  # Logo
+  $pdf->Image($URL."/teamplay_logo.jpg",10,245,40);
+  $pdf->Cell(0,15,'');
+  $pdf->Ln();
+  $pdf->SetFont('Arial','B',10);
+  $pdf->Cell(42,4,"");
+  $pdf->SetFont('Arial','B',10);
+  $pdf->Cell(0,4,"Gutschein für teamplay.de im Wert von 50 EUR");
+  $pdf->Ln();
+  $pdf->SetFont('Arial','B',10);
+  $pdf->Cell(42,4,"");
+  $pdf->SetFont('Arial','',10);
+  $pdf->Cell(0,4,"Pro Anmeldung ein Code gültig. Zeitraum: 01. - 31. Dezemeber 2010");
+  $pdf->Ln();
+  $pdf->SetFont('Arial','B',10);
+  $pdf->Cell(42,4,"");
+  $pdf->SetFont('Arial','',10);
+  $pdf->Cell(0,4,"Für Gameserver, nicht für Sonderaktionen und Voiceserver.");
+  $pdf->Ln();
+  $pdf->SetFont('Arial','B',10);
+  $pdf->Cell(42,4,"");
+  $pdf->SetFont('Arial','B',10);
+  $pdf->Cell(0,4,"Code: FAF-4BF-A41");
+
   $pdf->Output("maxlan_ticket.pdf","I");
-}  
+}
 ?>

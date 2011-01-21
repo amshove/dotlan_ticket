@@ -18,6 +18,10 @@
 ########################################################################
 
 
+SAFE_MODE
+URL
+
+
 Dieses Modul fuer DOTLAN ermoeglicht den Usern, ein "Online-Ticket" auszudrucken.
 Auf dem Ticket (Ausgegeben als PDF) stehen die wichtigsten Daten und ein Barcode
 (UserID) zum Einscannen am Check-In.
