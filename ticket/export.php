@@ -60,7 +60,7 @@ $text_hinweis = "BITTE UNBEDINGT DEN POP-UP BLOCKER FÜR \"www.lan\" DEAKTIVIEREN
 ########################################################################
 
 
-if(!empty($_GET["userid"]) && $ADMIN->check(ADMIN_USER)){
+if(!empty($_GET["userid"]) && $ADMIN->check(IS_ADMIN)){
   $user_id = mysql_real_escape_string($_GET["userid"]);
   $user = $DB->query_first("SELECT nick, vorname, nachname, geb FROM user WHERE id = '".$user_id."' LIMIT 1");
   $nick = utf8_decode($user['nick']);
@@ -264,29 +264,33 @@ if($data['bezahlt'] < 1){
   $pdf->MultiCell(0,4,$text_hinweis);
 
 # Teamplay aktion
-  # Logo
-  $pdf->Image($URL."/teamplay_logo.jpg",10,245,40);
-  $pdf->Cell(0,15,'');
-  $pdf->Ln();
-  $pdf->SetFont('Arial','B',10);
-  $pdf->Cell(42,4,"");
-  $pdf->SetFont('Arial','B',10);
-  $pdf->Cell(0,4,"Gutschein für teamplay.de im Wert von 50 EUR");
-  $pdf->Ln();
-  $pdf->SetFont('Arial','B',10);
-  $pdf->Cell(42,4,"");
-  $pdf->SetFont('Arial','',10);
-  $pdf->Cell(0,4,"Pro Anmeldung ein Code gültig. Zeitraum: 01. - 31. Dezemeber 2010");
-  $pdf->Ln();
-  $pdf->SetFont('Arial','B',10);
-  $pdf->Cell(42,4,"");
-  $pdf->SetFont('Arial','',10);
-  $pdf->Cell(0,4,"Für Gameserver, nicht für Sonderaktionen und Voiceserver.");
-  $pdf->Ln();
-  $pdf->SetFont('Arial','B',10);
-  $pdf->Cell(42,4,"");
-  $pdf->SetFont('Arial','B',10);
-  $pdf->Cell(0,4,"Code: FAF-4BF-A41");
+# Logo
+#  $pdf->Image($URL."/teamplay_logo.jpg",10,245,40);
+#  $pdf->Cell(0,15,'');
+#  $pdf->Ln();
+#  $pdf->SetFont('Arial','B',10);
+#  $pdf->Cell(42,4,"");
+#  $pdf->SetFont('Arial','B',10);
+#  $pdf->Cell(0,4,"Gutschein für teamplay.de im Wert von 50 EUR");
+#  $pdf->Ln();
+#  $pdf->SetFont('Arial','B',10);
+#  $pdf->Cell(42,4,"");
+#  $pdf->SetFont('Arial','',10);
+#  $pdf->Cell(0,4,"Bei Einreichung dieses PDF-Tickets - pro Anmeldung ein Ticket gültig.");
+#  $pdf->Ln();
+#  $pdf->Cell(42,4,"");
+#  $pdf->SetFont('Arial','',10);
+#  $pdf->Cell(1,4,"Zeitraum: 01. - 31. Dezemeber 2011");
+#  $pdf->Ln();
+#  $pdf->SetFont('Arial','B',10);
+#  $pdf->Cell(42,4,"");
+#  $pdf->SetFont('Arial','',10);
+#  $pdf->Cell(0,4,"Für Gameserver, nicht für Sonderaktionen und Voiceserver.");
+#  $pdf->Ln();
+#  $pdf->SetFont('Arial','B',10);
+#  $pdf->Cell(42,4,"");
+#  $pdf->SetFont('Arial','B',10);
+#  $pdf->Cell(0,4,"Code: FAF-4BF-A41");
 
   $pdf->Output("maxlan_ticket.pdf","I");
 }

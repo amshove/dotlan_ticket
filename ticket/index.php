@@ -41,7 +41,7 @@ if($data['bezahlt'] < 1){
   $output .= "<b>Ticket:</b> <a href='/ticket/export.php' target='_blank'>".sprintf("%04d",$user_id)." - ".$CURRENT_USER->nick." - ".$EVENT->eventarr['name']."</a>";
 }
 
-if($ADMIN->check(ADMIN_USER)){
+if($ADMIN->check(IS_ADMIN)){
   $output .= "<br><br><hr><br>";
   $output .= "<b>Ticket f&uuml;r andere User ausdrucken:</b>";
   $output .= "<form action='export.php' method='GET' target='_blank'>";
