@@ -41,18 +41,18 @@ $dns2 = "10.10.1.1";
 $wins = "10.10.1.253";
 $workgroup = "LAN";
 
-$text_ueber_settings = "Dies ist Deine persönliche IP-Konfiguration für die maxlan. Bitte denke daran, dass du ERST diese Einstellungen vornimmst, BEVOR du dein Netzwerkkabel in den Switch steckst.";
-$text_wichtig = "Bitte halte dich UNBEDINGT an diese Einstellungen. Das eigenständige Wechseln der IP-Adresse während der maxlan ist strengstens untersagt und kann bei Wiederholung zum Ausschluss von der maxlan führen. Weiterhin ist auch die Arbeitsgruppe zwingend auf \"".$workgroup."\" zu ändern. Zuwiderhandlungen führen ohne Vorankündigung zu einer Sperrung eures Zugangs zum Netzwerk der maxlan (in dem Fall bitte beim Support melden). Alles Weitere regeln die AGB. Pizzaschachteln bitte in die gesonderten Behälter! Alle Flaschen und angebrochenen/vollen Tetrapacks bitte an die Außenseite der Tische stellen! Danke!";
-$text_server = "Wir wollen hier nicht alle Adressen unserer Server aufführen, da ihr diese im Intranet nachschauen könnt.
+$text_ueber_settings = "Dies ist Deine persï¿½nliche IP-Konfiguration fï¿½r die maxlan. Bitte denke daran, dass du ERST diese Einstellungen vornimmst, BEVOR du dein Netzwerkkabel in den Switch steckst.";
+$text_wichtig = "Bitte halte dich UNBEDINGT an diese Einstellungen. Das eigenstï¿½ndige Wechseln der IP-Adresse wï¿½hrend der maxlan ist strengstens untersagt und kann bei Wiederholung zum Ausschluss von der maxlan fï¿½hren. Weiterhin ist auch die Arbeitsgruppe zwingend auf \"".$workgroup."\" zu ï¿½ndern. Zuwiderhandlungen fï¿½hren ohne Vorankï¿½ndigung zu einer Sperrung eures Zugangs zum Netzwerk der maxlan (in dem Fall bitte beim Support melden). Alles Weitere regeln die AGB. Pizzaschachteln bitte in die gesonderten Behï¿½lter! Alle Flaschen und angebrochenen/vollen Tetrapacks bitte an die Auï¿½enseite der Tische stellen! Danke!";
+$text_server = "Wir wollen hier nicht alle Adressen unserer Server auffï¿½hren, da ihr diese im Intranet nachschauen kï¿½nnt.
 Nur die wichtigsten sollten hier genannt werden:
 
 Intranet Server: www.lan (IP: 10.10.1.252)
 Dort gibt es alle Infos zur LAN, inkl. der Liste der weiteren Server.
 
 FTP-Server: ftp.lan
-Dort erhaltet ihr verschiedene Patches für Games und Betriebssysteme.";
-$text_abschluss = "Wir wünschen Euch viel Spaß auf der maxlan";
-$text_hinweis = "BITTE UNBEDINGT DEN POP-UP BLOCKER FÜR \"www.lan\" DEAKTIVIEREN, da wichtige Turnierinformationen über POP-Up's mitgeteilt werden.";
+Dort erhaltet ihr verschiedene Patches fï¿½r Games und Betriebssysteme.";
+$text_abschluss = "Wir wï¿½nschen Euch viel Spaï¿½ auf der maxlan";
+$text_hinweis = "BITTE UNBEDINGT DEN POP-UP BLOCKER Fï¿½R \"www.lan\" DEAKTIVIEREN, da wichtige Turnierinformationen ï¿½ber POP-Up's mitgeteilt werden.";
 
 
 ########################################################################
@@ -91,16 +91,10 @@ if($data['bezahlt'] < 1){
   elseif($bezahlt == 1) $bezahlt = "JA";
   elseif($bezahlt == 2) $bezahlt = "(Team)";
 
-  if(preg_match("/^Sitz\: [A-HV]\-[0-9][0-9]?$/",$data['sitzplatz'])){
-    if(strlen($data['sitzplatz']) == 9){
-      $block = substr($data['sitzplatz'],-3,1);
-      $platz = substr($data['sitzplatz'],-1);
-      $ip = $ip.$subnetz[$block].".".$platz;
-    }elseif(strlen($data['sitzplatz']) == 10){
-      $block = substr($data['sitzplatz'],-4,1);
-      $platz = substr($data['sitzplatz'],-2);
-      $ip = $ip.$subnetz[$block].".".$platz;
-    }else $ip = "bitte am Support fragen";
+  if(preg_match("/([A-HV])\-([0-9][0-9]?)$/",$data['sitzplatz'],$matches) && $matches[1] && $matches[2]){
+    $block = $matches[1];
+    $platz = $matches[2];
+    $ip = $ip.$subnetz[$block].".".$platz;
   }else $ip = "bitte am Support fragen";
 
   require('fpdf16/fpdf.php');
@@ -140,7 +134,7 @@ if($data['bezahlt'] < 1){
   $pdf->SetFont('Arial','B',10);
   $pdf->Cell(22,4,"SitzNr.: ");
   $pdf->SetFont('Arial','',10);
-  $pdf->Cell(0,4,$data['sitzplatz']);
+  $pdf->Cell(0,4,$block."-".$platz);
   $pdf->Ln();
   # Leerraum
   $pdf->Cell(0,3,'');
@@ -269,12 +263,12 @@ if($data['bezahlt'] < 1){
 #  $pdf->SetFont('Arial','B',10);
 #  $pdf->Cell(42,4,"");
 #  $pdf->SetFont('Arial','B',10);
-#  $pdf->Cell(0,4,"Gutschein für teamplay.de im Wert von 50 EUR");
+#  $pdf->Cell(0,4,"Gutschein fï¿½r teamplay.de im Wert von 50 EUR");
 #  $pdf->Ln();
 #  $pdf->SetFont('Arial','B',10);
 #  $pdf->Cell(42,4,"");
 #  $pdf->SetFont('Arial','',10);
-#  $pdf->Cell(0,4,"Bei Einreichung dieses PDF-Tickets - pro Anmeldung ein Ticket gültig.");
+#  $pdf->Cell(0,4,"Bei Einreichung dieses PDF-Tickets - pro Anmeldung ein Ticket gï¿½ltig.");
 #  $pdf->Ln();
 #  $pdf->Cell(42,4,"");
 #  $pdf->SetFont('Arial','',10);
@@ -283,7 +277,7 @@ if($data['bezahlt'] < 1){
 #  $pdf->SetFont('Arial','B',10);
 #  $pdf->Cell(42,4,"");
 #  $pdf->SetFont('Arial','',10);
-#  $pdf->Cell(0,4,"Für Gameserver, nicht für Sonderaktionen und Voiceserver.");
+#  $pdf->Cell(0,4,"Fï¿½r Gameserver, nicht fï¿½r Sonderaktionen und Voiceserver.");
 #  $pdf->Ln();
 #  $pdf->SetFont('Arial','B',10);
 #  $pdf->Cell(42,4,"");
