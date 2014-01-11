@@ -61,9 +61,9 @@ $text_hinweis = "BITTE UNBEDINGT DEN POP-UP BLOCKER F�R \"www.lan\" DEAKTIVIER
 if(!empty($_GET["userid"]) && $ADMIN->check(IS_ADMIN)){
   $user_id = mysql_real_escape_string($_GET["userid"]);
   $user = $DB->query_first("SELECT nick, vorname, nachname, geb FROM user WHERE id = '".$user_id."' LIMIT 1");
-  $nick = utf8_decode($user['nick']);
-  $vorname = utf8_decode($user['vorname']);
-  $nachname = utf8_decode($user['nachname']);
+  $nick = $user['nick'];
+  $vorname = $user['vorname'];
+  $nachname = $user['nachname'];
   $geb_date = $user['geb'];
 }else{
   $user_id = $CURRENT_USER->id;
